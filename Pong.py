@@ -34,8 +34,8 @@ ball.speed(0)
 ball.shape("square")
 ball.color("red")
 ball.penup()
-ball.dx = 0.25
-ball.dy = -0.25
+ball.dx = 0.3
+ball.dy = -0.3
 
 # Score
 
@@ -184,11 +184,17 @@ wn.getcanvas().bind("<KeyRelease-Down>", on_key_release)
 
 # Main Loop
 while True:
-    wn.update()
+    try:
+      wn.update()
+    except turtle.Terminator:
+      pass
+
     
     # Move the ball
-    ball.setx(ball.xcor() + ball.dx)
-    ball.sety(ball.ycor() + ball.dy) 
+    if turtle.TurtleScreen._RUNNING:
+      ball.setx(ball.xcor() + ball.dx)
+      ball.sety(ball.ycor() + ball.dy)
+
     
     # Border Checking
     if ball.ycor() > 335:
